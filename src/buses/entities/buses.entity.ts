@@ -21,6 +21,9 @@ export class Bus {
   @Column()
   capacity: number;
 
+  @Column({ default: 0 })
+  recommendations: number;
+
   @OneToMany(() => Trip, (trip) => trip.bus, { cascade: true })
   trips: Trip[];
 }
