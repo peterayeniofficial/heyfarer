@@ -11,15 +11,16 @@ import {
 import { BusesService } from './buses.service';
 import { CreateBusDto } from './dto/create-bus.dto';
 import { UpdateBusDto } from './dto/update-bus.dto';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Controller('buses')
 export class BusesController {
   constructor(private readonly busesService: BusesService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
     // const { limit, offset } = paginationQuery;
-    return this.busesService.findAll();
+    return this.busesService.findAll(paginationQuery);
   }
 
   @Get(':id')

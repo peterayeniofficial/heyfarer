@@ -21,6 +21,6 @@ export class Bus {
   @Column()
   capacity: number;
 
-  @OneToMany(() => Trip, (trip) => trip.bus)
+  @OneToMany(() => Trip, (trip) => trip.bus, { cascade: true })
   trips: Trip[];
 }

@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Bus } from './entities/buses.entity';
 import { CreateBusDto } from './dto/create-bus.dto';
 import { UpdateBusDto } from './dto/update-bus.dto';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Injectable()
 export class BusesService {
@@ -12,12 +13,17 @@ export class BusesService {
     private readonly busRepository: Repository<Bus>,
   ) {}
 
-  findAll() {
-    return this.busRepository.find();
+  findAll(paginationQuery: PaginationQueryDto) {
+    const { limit, offset } = paginationQuery;
+    return this.busRepository.find({
+      relations: ['trips'],
+      skip: offset,
+      take: limit,
+    });
   }
 
   async findOne(id: string) {
-    const bus = await this.busRepository.findOne(id);
+    const bus = await this.busRepository.findOne(id, { relations: ['trips'] });
     if (!bus) {
       throw new NotFoundException(`Bus #${id} not found`);
     }
