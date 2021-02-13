@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Trip } from './trip.entity';
 
 @Entity()
 export class Bus {
@@ -19,4 +20,7 @@ export class Bus {
 
   @Column()
   capacity: number;
+
+  @OneToMany(() => Trip, (trip) => trip.bus)
+  trips: Trip[];
 }
