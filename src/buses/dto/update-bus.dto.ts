@@ -1,7 +1,4 @@
-export class UpdateBusDto {
-  readonly numberPlate?: string;
-  readonly manufacturer?: string;
-  readonly model?: string;
-  readonly year?: string;
-  readonly capacity?: number;
-}
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateBusDto } from './create-bus.dto';
+
+export class UpdateBusDto extends PartialType(CreateBusDto) {}

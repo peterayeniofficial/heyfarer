@@ -33,6 +33,7 @@ export class BusesService {
 
   create(createBussDto: any) {
     this.buses.push(createBussDto);
+    return createBussDto;
   }
 
   update(id: string, updateBussDto: any) {
