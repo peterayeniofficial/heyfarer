@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { Bus } from './entities/buses.entity';
@@ -6,6 +6,8 @@ import { CreateBusDto } from './dto/create-bus.dto';
 import { UpdateBusDto } from './dto/update-bus.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { Event } from '../events/entities/event.entity';
+import { ConfigType } from '@nestjs/config';
+import busesConfig from './config/buses.config';
 
 @Injectable()
 export class BusesService {
@@ -13,7 +15,11 @@ export class BusesService {
     @InjectRepository(Bus)
     private readonly busRepository: Repository<Bus>,
     private readonly connection: Connection,
-  ) {}
+    @Inject(busesConfig.KEY)
+    private readonly busesConfiguration: ConfigType<typeof busesConfig>,
+  ) {
+    console.log(busesConfiguration.foo);
+  }
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
