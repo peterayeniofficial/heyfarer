@@ -16,27 +16,27 @@ export class BusesController {
 
   @Get()
   findAll(@Query() paginationQuery) {
-    const { limit, offset } = paginationQuery;
-    return `This action return all buses. Limit: ${limit}, offset: ${offset}`;
+    // const { limit, offset } = paginationQuery;
+    return this.busesService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `This action return a #[id] ${id} bus`;
+    return this.busesService.findOne(id);
   }
 
   @Post()
   create(@Body() body) {
-    return body;
+    return this.busesService.create(body);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() body) {
-    return `This action updates #${id} buss`;
+    return this.busesService.update(id, body);
   }
 
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return `This action remove #${id} bus`;
+    return this.busesService.remove(id);
   }
 }
