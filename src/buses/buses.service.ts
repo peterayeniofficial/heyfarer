@@ -13,4 +13,30 @@ export class BusesService {
       capacity: 18,
     },
   ];
+
+  findAll() {
+    return this.buses;
+  }
+
+  findOne(id: string) {
+    return this.buses.find((bus) => bus.id === +id);
+  }
+
+  create(createBussDto: any) {
+    this.buses.push(createBussDto);
+  }
+
+  update(id: string, updateBussDto: any) {
+    const existingBuss = this.findOne(id);
+    if (existingBuss) {
+      // update the existing bus
+    }
+  }
+
+  remove(id: string) {
+    const busIndex = this.buses.findIndex((bus) => bus.id === +id);
+    if (busIndex >= 0) {
+      this.buses.splice(busIndex, 1);
+    }
+  }
 }
