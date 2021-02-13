@@ -14,6 +14,7 @@ import { UpdateBusDto } from './dto/update-bus.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { Public } from 'src/common/decorators/public.decorator';
 import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
+import { Protocol } from 'src/common/decorators/protocol.decorator';
 
 @Controller('buses')
 export class BusesController {
@@ -21,8 +22,11 @@ export class BusesController {
 
   @Public()
   @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
-    // const { limit, offset } = paginationQuery;
+  findAll(
+    @Protocol('https') protocol: string,
+    @Query() paginationQuery: PaginationQueryDto,
+  ) {
+    console.log(protocol);
     return this.busesService.findAll(paginationQuery);
   }
 
