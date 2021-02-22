@@ -15,11 +15,14 @@ import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { Public } from 'src/common/decorators/public.decorator';
 import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 import { Protocol } from 'src/common/decorators/protocol.decorator';
+import { ApiResponse, ApiForbiddenResponse, ApiTags } from '@nestjs/swagger';
 
-@Controller('buses')
+@ApiTags('Buses')
+@Controller('v1/buses')
 export class BusesController {
   constructor(private readonly busesService: BusesService) {}
 
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   @Public()
   @Get()
   findAll(
@@ -30,6 +33,7 @@ export class BusesController {
     return this.busesService.findAll(paginationQuery);
   }
 
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: string) {
     console.log(id);
