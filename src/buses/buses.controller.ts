@@ -12,9 +12,9 @@ import { BusesService } from './buses.service';
 import { CreateBusDto } from './dto/create-bus.dto';
 import { UpdateBusDto } from './dto/update-bus.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
-import { Public } from 'src/common/decorators/public.decorator';
+import { Public } from '../common/decorators/public.decorator';
 import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
-import { Protocol } from 'src/common/decorators/protocol.decorator';
+import { Protocol } from '../common/decorators/protocol.decorator';
 import { ApiResponse, ApiForbiddenResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Buses')
