@@ -2,7 +2,7 @@
 
 ## Description
 
-[Host](https://github.com/nestjs/nest) Hey Farer is a Bus trip management API
+[Host](https://github.com/peterayeniofficial/heyfarer) Hey Farer is a Bus trip management API
 
 ## Installation
 

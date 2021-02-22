@@ -23,7 +23,6 @@ export class BusesController {
   constructor(private readonly busesService: BusesService) {}
 
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @Public()
   @Get()
   findAll(
     @Protocol('https') protocol: string,
