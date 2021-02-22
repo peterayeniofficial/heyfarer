@@ -75,7 +75,13 @@ describe('[Feature] Buses - /v1/buses (e2e)', () => {
         expect(body[0]).toEqual(expectedPartialBus);
       });
   });
-  it.todo('Get one [GET /:id]');
+  it('Get one [GET /:id]', () => {
+    return request(httpServer)
+      .get('/v1/buses/1')
+      .then(({ body }) => {
+        expect(body).toEqual(expectedPartialBus);
+      });
+  });
   it.todo('Update one [PATCH /:id]');
   it.todo('Delete one [DELETE /:id]');
 
