@@ -9,6 +9,7 @@ import { BusesModule } from '../../src/buses/buses.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 import { CreateBusDto } from 'src/buses/dto/create-bus.dto';
+import { UpdateBusDto } from '../../src/buses/dto/update-bus.dto';
 
 describe('[Feature] Buses - /v1/buses (e2e)', () => {
   const bus = {
@@ -67,6 +68,7 @@ describe('[Feature] Buses - /v1/buses (e2e)', () => {
         expect(body).toEqual(expectedPartialBus);
       });
   });
+
   it('Get all [GET /]', () => {
     return request(httpServer)
       .get('/v1/buses')
@@ -75,6 +77,7 @@ describe('[Feature] Buses - /v1/buses (e2e)', () => {
         expect(body[0]).toEqual(expectedPartialBus);
       });
   });
+
   it('Get one [GET /:id]', () => {
     return request(httpServer)
       .get('/v1/buses/1')
@@ -82,8 +85,36 @@ describe('[Feature] Buses - /v1/buses (e2e)', () => {
         expect(body).toEqual(expectedPartialBus);
       });
   });
-  it.todo('Update one [PATCH /:id]');
-  it.todo('Delete one [DELETE /:id]');
+
+  it('Update one [PATCH /:id]', () => {
+    const updatedBusDto: UpdateBusDto = {
+      ...bus,
+      numberPlate: 'ASL 45 LD',
+    };
+    return request(httpServer)
+      .patch('/v1/buses/1')
+      .send(updatedBusDto)
+      .then(({ body }) => {
+        expect(body.numberPlate).toEqual(updatedBusDto.numberPlate);
+
+        return request(httpServer)
+          .get('/v1/buses/1')
+          .then(({ body }) => {
+            expect(body.numberPlate).toEqual(updatedBusDto.numberPlate);
+          });
+      });
+  });
+
+  it('Delete one [DELETE /:id]', () => {
+    return request(httpServer)
+      .delete('/v1/buses/1')
+      .expect(HttpStatus.OK)
+      .then(() => {
+        return request(httpServer)
+          .get('/v1/buses/1')
+          .expect(HttpStatus.NOT_FOUND);
+      });
+  });
 
   afterAll(async () => {
     await app.close();
